@@ -5,7 +5,7 @@
 
 import re
 
-notes_header = ['Source Path', 'UniqueId14M', 'LoanTypeIdDesc', 'PaymentType', 'OrigMtgDt', 'OrigProductionsFundDt',                'USPSFullAddr', 'USPSCity' , 'USPSState', 'USPSZip5', 'OrigLoanAmt', 'LenderName',                 'OrigNoteRate', 'OrigARMNoteRate14M', 'OrigFirstPmtDueDt', 'RecurringDate', 'OrigIntOnlyFlag',                'OrigIntOnlyExpDt', 'OrigMaturityDt', 'ARMInitialRateResetMon', 'OrigAmortTermMonths',                'OrigIntOnlyTermMon',  'OrigLoanTypeId', 'OrigPIAmt', 'Change Date', 'ARMRecastFreqMonths',                'OrigARMIndexCd14M', 'ARMMarginRate14M', 'ARMSubseqAdjCapRate', 'ARMFloorRate',                 'OrigARMLifeCapRate', 'OrigARMFloorRate14M', 'OrigARMCeilingRate14M',                'OrigPayoffPenaltyFlag', 'OrigPayoffPenaltyWinMonths', 'OrigChannelNum', 'Document Type']
+notes_header = ['Source Path', 'UniqueId14M', 'LoanTypeIdDesc', 'PaymentType', 'OrigMtgDt', 'OrigProductionsFundDt',                'USPSFullAddr', 'USPSCity' , 'USPSState', 'USPSZip5', 'OrigLoanAmt', 'LenderName',                 'OrigNoteRate', 'OrigARMNoteRate14M', 'OrigFirstPmtDueDt', 'OrigIntOnlyFlag',                'OrigIntOnlyExpDt', 'OrigMaturityDt', 'ARMInitialRateResetMon', 'OrigAmortTermMonths',                'OrigIntOnlyTermMon',  'OrigLoanTypeId', 'OrigPIAmt', 'Change Date', 'ARMRecastFreqMonths',                'OrigARMIndexCd14M', 'ARMMarginRate14M', 'ARMSubseqAdjCapRate', 'ARMFloorRate',                 'OrigARMLifeCapRate', 'OrigARMFloorRate14M', 'OrigARMCeilingRate14M','PayoffPenaltyFlag',                 'PayoffPenaltyWinMonths', 'OrigChannelNum', 'Paragraphs Not Found' ,'Document Type']
 
 source_path_index = 0
 loan_number_index = 1
@@ -22,45 +22,44 @@ lender_name_index = 11
 note_rate_index = 12
 arm_initial_rate_index = 13
 first_payment_date_index = 14
-recurring_date_index = 15
-interest_only_at_origination_flag_index = 16
-interest_only_exp_date_index = 17
-maturity_date_index = 18
-initial_rate_period_index = 19
-loan_term_index = 20
-interest_only_term_index = 21
-interest_type_at_origination_index = 22
-pi_amount_index = 23
-change_date_index = 24
-arm_payment_reset_freq_index= 25
-arm_index_index = 26
-arm_margin_at_origination_index = 27
-arm_periodic_rate_cap_index = 28
-arm_periodic_rate_floor_index = 29
-arm_lifetime_rate_cap_index = 30
-arm_lifetime_rate_floor_index = 31
-arm_lifetime_rate_ceiling_index = 32
-prepayment_penalty_flag_index = 33
-prepayment_penalty_term_index = 34
-loan_source_index = 35
+interest_only_at_origination_flag_index = 15
+interest_only_exp_date_index = 16
+maturity_date_index = 17
+initial_rate_period_index = 18
+loan_term_index = 19
+interest_only_term_index = 20
+interest_type_at_origination_index = 21
+pi_amount_index = 22
+change_date_index = 23
+arm_payment_reset_freq_index= 24
+arm_index_index = 25
+arm_margin_at_origination_index = 26
+arm_periodic_rate_cap_index = 27
+arm_periodic_rate_floor_index = 28
+arm_lifetime_rate_cap_index = 29
+arm_lifetime_rate_floor_index = 30
+arm_lifetime_rate_ceiling_index = 31
+prepayment_penalty_flag_index = 32
+prepayment_penalty_term_index = 33
+loan_source_index = 34
+paragraphs_not_found_index = 35
 
 # Regex for markers
 note_re_string = '[NM]\s{0,}[OQo0]{0,1}.{0,1}[TLI].{0,1}[EC]'
 note_re = re.compile(note_re_string)
 
-fixed_re_string = '(?i)F\s{0,}i\s{0,}[xnv]\s{0,}[ec]{0,1}\s{0,}[dj]'
-adjustable_re_string = '[AQ][DB][JI\s]\s{0,1}[UIO\s]\s{0,}S[TI]A[BEH][LI]E\s{0,}.{3,5}\s{0,}'
+fixed_re_string = '(?i)F\s{0,}[il]\s{0,}.{0,1}[xnvcl]\s{0,}[ecil]{0,1}\s{0,}[dj]{0,1}'
+adjustable_re_string = '[AQ][DB][JIL\s]\s{0,1}[UIOL\s]\s{0,}S[TI]A[BEH][LI]E\s{0,}.{3,5}\s{0,}'
 equity_re_string = 'EQUITY\s{0,}'
-promissory_re_string = '.R[OQ][MN]\s{0,}[IlHJ\]].{0,2}S\s{0,}S[OQg\s]\s{0,}[R\s].{0,2}\s{0,}'
+promissory_re_string = '.[RN][OQ][MN]\s{0,}[IlLHJ\]R].{0,2}[S]\s{0,}[S][OQGg\s]\s{0,}[R\sN].{0,2}\s{0,}'
 balloon_re_string = 'BALLOON\s{0,}'
 consolidated_re_string = 'CON\s{0,}SOLIDATE{0,1}.\s{0,}'
-restated_re_string = 'RESTATED'
-interest_only_period_re_string = 'INTEREST.{0,1}ONLY PERIOD'
-addendum_re_string = 'ADDENDUM'
-allonge_re_string = 'ALL[O0]NGE'
-multistate_re_string = '.{0,4}[TI]S[TIY]A[TI]E'
+restated_re_string = 'RESTATED\s{0,}'
+interest_only_period_re_string = 'INTEREST.{0,1}ONLY\s{0,}PERIOD\s{0,}'
+addendum_re_string = 'ADDENDUM\s{0,}'
+allonge_re_string = 'ALL[O0]NGE\s{0,}'
+multistate_re_string = '.{0,4}[TI]S[TIY]A[TI]E\s{0,}'
 
-     
 adjustable_re = re.compile(adjustable_re_string)
 fixed_re= re.compile(fixed_re_string)
 equity_re = re.compile(equity_re_string)
@@ -69,21 +68,39 @@ balloon_re = re.compile(balloon_re_string)
 restated_re = re.compile(restated_re_string)
 interest_only_period_re = re.compile(interest_only_period_re_string)
 addendum_re = re.compile(addendum_re_string)
-consolidated_adjustable_re = re.compile(consolidated_re_string + adjustable_re_string + note_re_string) # We don't want this
 allonge_re = re.compile(allonge_re_string)
 multistate_re = re.compile(multistate_re_string)
 
-loan_type_re_string = '(' + adjustable_re_string + '|' + equity_re_string + '|' + promissory_re_string + '|' + balloon_re_string + '|' + restated_re_string + ')' + note_re_string
+#consolidated_adjustable_re = re.compile(consolidated_re_string + adjustable_re_string + note_re_string) 
+# We don't want this (just saw one where this is good)
+
+loan_type_re_string = '(' + adjustable_re_string + '|' + equity_re_string + '|' + promissory_re_string + '|' + balloon_re_string + '|' + restated_re_string + '|' + consolidated_re_string + ')' + note_re_string
 loan_type_re = re.compile(loan_type_re_string)
 
 date_re = re.compile('[\[\{\(l\|]D\s{0,1}[ai].{0,1}[tlKrv]{1,2}[eoca][\]\}\)\sl\|]')
 city_re = re.compile('[\[\{\(\|lY]\s{0,1}C.{0,2}[trR][yvY][\]\}\)\|l]')
 state_re = re.compile('[\[\{\(\|l]\s{0,1}S[tl]a[tl][eco][\]\}\)\|lt]')
 
-complete_date_re = re.compile('(?i)((Jan(?:uary)?|Feb(?:ruar[yv])?|Mar(?:ch)?|Apr(?:il)?|May|[JL]un(?:e)?|Jul(?:y)?|Aug(?:u[sa]t)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)\s{0,}.{0,2}[\.,]{0,1}\s{0,}.{4})')
+# Regex's for dates
+letters_could_be_numbers = 'OoDUuLlIi!\|\[\]\(\)\{\}ZzSsGB'
+# We always have full month names for the Notes
+# months_re_string = '(?i)((Jan(?:uary)?)|(Feb(?:ruar[yv])?)|(Mar(?:ch)?)|(Apr(?:il)?)|(May)|([JL]un(?:e)?)|\
+# (Jul(?:y)?)|(Aug(?:u[sa]t)?)|(Sep(?:tember)?)|(Oct(?:ober)?)|(Nov(?:ember)?)|(Dec(?:ember)?))'
+months_re_string = '(?i)(([JI\)]an[ua]{1,3}[rm]y)|([FE][ec]bruar[yv])|(March)|(A\s{0,}p\s{0,}r\s{0,}[ilt1\s]{2,3})|(May)|([JLT\)]\s{0,}[ui0]\s{0,}[nm]\s{0,}e)|([JI\)]u\s{0,}[lt1I]y)|(Aug[ug][sa]t)|(Sep[tb]em\s{0,1}ber)|(O{0,1}ctober)|(Nov[em]{2}ber)|([Dp]ec[em][mne]{1,2}[be]{2}r{0,1}))'
+date_number_re_string = '[\d' + letters_could_be_numbers + ']'
+# The day could have 1 or 2 digits
+complete_date_re_string = '(' + months_re_string + '\s{0,}[,\.]{0,1}\s{0,}' + '(.{0,3}\s{0,}' + date_number_re_string + '{0,1}\s{0,}' + date_number_re_string + '{0,1}\s{0,}' + '.{0,3}\s{0,}'  +  ')'+ '[,\.\s]\s{0,}' + '(' + date_number_re_string + '\s{0,}' + date_number_re_string + '\s{0,}' + date_number_re_string + '\s{0,}' + date_number_re_string + ')' + ')'
+# Note - the .{0,3} is just for the unreadable characters that sometimes replace the ordinal stuff
+# or sometimes a random character is inserted before or after the number
+
+
+
+complete_date_re = re.compile(complete_date_re_string)
+
+clean_months = ['JANUARY', 'FEBRUARY', 'MARCH', 'APRIL', 'MAY', 'JUNE', 'JULY', 'AUGUST', 'SEPTEMBER', 'OCTOBER',                'NOVEMBER', 'DECEMBER']
+
 
 property_address_re = re.compile('.{1,6}[riomu]{1,2}p.{1,3}[yzv]\s{0,}[Aa].{0,1}[dl]d{0,1}.[eun]{0,1}[sea]{1,2}[:\]\)\}\|l]|                                 \[Property\]|P[ROM]{1,2}PE[RI][TL]Y\s{0,}ADDRES\s{0,1}S')
-
 
 # If no colon, the address is above
 # I with colon, the address is next to the marker and line below (if it is not empty)
@@ -95,27 +112,27 @@ state_names_list_re = re.compile('(ALABAMA)|(ARKANSAS)|(ARIZONA)|(ARKANSAS)|(CAL
 
 
 # BORROWER'S PROMISE TO PAY/RIGHT TO PREPAY components
-borrowers_re_string = '(?i)[BE83aD][O0DU][rna]{2}[O0DU].{0,2}[WV].{0,1}[EOA]{0,1}[RLFN].{0,6}\s{0,}'
-promise_re_string = '(?i).{1,4}R[OE][MNILVBWH]{1,4}S{0,1}E\s{0,}'
+borrowers_re_string = '(?i)[BIE83aD]{1,2}[O0DU][rnaBE]{2}\s{0,1}[O0DU].{0,2}[WV].{0,1}[EOA]{0,1}[RLFN].{0,3}\s{0,}[^A-Z]{0,2}'
+promise_re_string = '(?i).{1,2}[RB]{0,1}[OE]{0,1}[MNH][ILT].{0,1}S{0,1}E\s{0,}'
 to_pay_re_string = '(?i).{1,5}\s{0,1}[Oo0][E\s]{0,}[PAmFL]{1,2}.{0,1}[YxIlV]'
-right_re_string = '(?i)R[Il1E][GC]H.{0,1}[TIl1].{0,1}\s{0}'
+right_re_string = '(?i)R[Il1E][GC]H.{0,1}[TIl1].{0,1}\s{0,}'
 to_prepay_re_string = '(?i).{1,3}[Oo0] [PF][RB]E[PF]AY'
 
 borrowers_promise_to_pay_re_string = borrowers_re_string + promise_re_string +  to_pay_re_string + '|' + 'In return for a loan' + '|' + 'For value received'
 
-interest_uc_re_string = '[Il1!\]\[\|].{0,1}N.{0,1}T.{0,1}[EF].{0,1}R[EB][SsI].{0,1}[T1I]{0,1}'
+interest_uc_re_string = '[Iil1!\]\[\|].{0,1}N.{0,1}T.{0,1}[EF].{0,1}R[EB][SsI].{0,1}[T1I]{0,1}'
 interest_lc_re_string = '\d\s{0,}[\.,]{0,1}\s{0,}[Il1i!\]\[\|]nterest|Interest will [bh]e charged'
 
-payment_re_string = '.AY[MIWNVL]{1,3}EN.'
+payment_re_string = '.AY[MIWNVL\s]{1,3}[EIu]{1,2}N.'
 
-payments_re_string = payment_re_string + 'S|\d\s{0,}\.\s{0,}Payments'
+payments_re_string = payment_re_string + 'S|\d\s{0,}[,\.]\s{0,}Payments'
 
-time_and_place_of_payments_re_string = '[T\s][ilt][mn][ebc].{0,2}[aj]nd.{0,2}Pl[a\s][ct]{1,2}[ec]' + '.{3,9}[aon][yv\s]t{0,1}[mn][ec][nua].{1,3}'
+time_and_place_of_payments_re_string = '[T\s][ilt][mn][ebc].{0,2}[aj]nd.{0,2}P[lI][a\s][ct]{1,2}[ec]' + '.{2,9}[aon][yv\s]t{0,1}[mn][ec][nua].{1,3}'
 
 interest_rate_and_payment_changes_re_string = '.*' + interest_uc_re_string + '\s{0,}RATE AND.*' + payment_re_string +'.{1,9}AN\s{0,}G\s{0,}ES' + '|' +'Interest Rate and Payment Changes'
 change_dates_re_string = 'Change Dates'
 
-borrowers_right_to_prepay_re_string =  borrowers_re_string + right_re_string + '|' + right_re_string + to_prepay_re_string + '|' + 'I\s{0,}have the right to make payments'
+borrowers_right_to_prepay_re_string =  borrowers_re_string + right_re_string + to_prepay_re_string + '|' + 'I\s{0,}have the right to make payments'
 
 loan_charges_re_string = 'LOAN CHARGES|Loan Charges'
 
@@ -134,7 +151,7 @@ thereafter_re_string = '[Tt][hlr]{1,2}[ec]r[ec]a.{2}[ec]r'
     
 
 
-# In[5]:
+# In[2]:
 
 import re
 
@@ -237,7 +254,8 @@ def getPaymentType(loan_type, attributes_row, in_file):
             else:
                 payment_type = payment_type.replace('\n', '').strip()
                 if len(payment_type) > 5:
-                    if 'THIS' in payment_type or 'This' in payment_type:
+                    this_note_marker_re = re.compile('(?i)TH[EIS]{1,2} NOTE')
+                    if len(this_note_marker_re.findall(payment_type)) > 0:
                         # 'THIS NOTE' is not the string we want for payment type
                         payment_type = ''
                         payment_type_found = True
@@ -256,7 +274,7 @@ def getPaymentType(loan_type, attributes_row, in_file):
 def cleanPaymentType(payment_type):
     
     # Clean payment type
-    start_marker_re = re.compile('[\(\[\{\|]')
+    start_marker_re = re.compile('[\(\[\{\|C]')
     end_marker_re = re.compile('[\)\]]')
 
     start_marker = start_marker_re.findall(payment_type)
@@ -277,37 +295,64 @@ def cleanPaymentType(payment_type):
     index_re = re.compile('(?i)Inde[xk]')
     month_re = re.compile('(?i)mont[hl]{1,2}')
     arm_re = re.compile('AR[MNI\s]{1,2}')
-    rate_re = re.compile('R[au]\s{0,}[tl]e')
+    rate_re = re.compile('R[aui]\s{0,}[tli].{0,1}[eE]')
+    cr_re = re.compile('Cons.*v[ec]r')
     
     if len(treasury_re.findall(payment_type)) > 0:
         # Convert the regex version to just say 'Treasury'
         treasury_marker = treasury_re.findall(payment_type)[0]
         payment_type = payment_type.replace(treasury_marker, 'Treasury ')
+        if debug:
+            print('Treasury marker + cleaned payment type: ', str(treasury_marker), payment_type)
 
     if len(index_re.findall(payment_type)) > 0:
         # Convert the regex version to just say 'Index'
         index_marker = index_re.findall(payment_type)[0]
         payment_type = payment_type.replace(index_marker, 'Index ')
+        if debug:
+            print('Index marker + cleaned payment type: ', str(index_marker), payment_type)
 
     if len(month_re.findall(payment_type)) > 0:
         # Convert the regex version to just say 'Month'
         month_marker = month_re.findall(payment_type)[0]
         payment_type = payment_type.replace(month_marker, 'Month ')
+        if debug:
+            print('Month marker + cleaned payment type: ', str(month_marker), payment_type)
         
     if len(arm_re.findall(payment_type)) > 0:
         # Convert the regex version to just say 'Index'
         arm_marker = arm_re.findall(payment_type)[0]
         payment_type = payment_type.replace(arm_marker, 'ARM ')
+        if debug:
+            print('ARM marker + cleaned payment type: ', str(arm_marker), payment_type)
         
     if len(fixed_re.findall(payment_type)) > 0:
         fixed_marker = fixed_re.findall(payment_type)[0]
         payment_type = payment_type.replace(fixed_marker, 'Fixed ')
+        if debug:
+            print('Fixed marker + cleaned payment type: ', str(fixed_marker), payment_type)
     
     if len(rate_re.findall(payment_type)) > 0:
         rate_marker = rate_re.findall(payment_type)[0]
         payment_type = payment_type.replace(rate_marker, 'Rate ')
+        if debug:
+            print('Rate marker + cleaned payment type: ', str(rate_marker), payment_type)
 
+    if len(cr_re.findall(payment_type)) > 0:
+        cr_marker = cr_re.findall(payment_type)[0]
+        payment_type = payment_type.replace(cr_marker, 'Construction/Rollover')
+        if debug:
+            print('Construction/Rollover marker + cleaned payment type: ', str(cr_marker), payment_type)
 
+        
+    fixed_rate_re = re.compile('.{0,3}[ecn]d\s{0,}.{0,3}\s{0,}Rate|Fixed\s{0,}[Rmtun]{1,3}')
+    if len(fixed_rate_re.findall(payment_type)) > 0: 
+        fixed_rate_marker = fixed_rate_re.findall(payment_type)[0]
+        payment_type = 'Fixed Rate'
+        if debug:
+            print('Fixed Rate marker + cleaned payment type: ', str(fixed_rate_marker), payment_type)
+        
+        
     # Remove everything that is not a letter, number, / or space
     # Convert multiple spaces to just one space
     payment_type = re.sub('[^A-Za-z0-9/\s]', '', payment_type).strip()
@@ -358,15 +403,22 @@ def getDateAndCity(line, previous_lines, attributes_row):
         print('Found date: ' + mortgage_date)
         print('Found city: ' + date_city)
     
-    attributes_row[mortgage_date_index] = mortgage_date
-    attributes_row[productions_fund_date_index] = mortgage_date
+    if mortgage_date.startswith('Error'):
+        cleaned_date = mortgage_date
+        formatted_date = ''
+    else:
+        cleaned_date, formatted_date = cleanAndFormatDate(mortgage_date)
+        
+    attributes_row[mortgage_date_index] = cleaned_date
+    attributes_row[productions_fund_date_index] = cleaned_date
     attributes_row[usps_city_index] = date_city
     
     return attributes_row
 
 def getMortgageDate(line):
-    # Check if the line has a date and if the date is the first part of the line
-    # There are times when there are some characters in the beginning of the date
+    # Get date from line
+    # We keep dates until we find 'BORROWERS PROMISE TO PAY'
+
     line_splits = re.split(r'\s{3,}', line)
     split_with_possible_date = ''
         
@@ -375,47 +427,131 @@ def getMortgageDate(line):
         chars_count = len(line_split.strip().replace(' ', ''))
         if chars_count > 5 and chars_count < 20:
             split_with_possible_date = line_split
-            break;
-    
-    
-    date_marker = complete_date_re.findall((split_with_possible_date))
-    if debug:
-        print('Line: ', line)
-        print('Date marker: ', date_marker)
-        
-    # For a date to be qualified as the mortgage date, if I remove the date from split_with_date,
-    # there should only be less than 5 characters left (otherwise the date is part of a long string)
-    if len(date_marker) > 0:
-        date = date_marker[0][0]
-        remaining_characters = split_with_possible_date.replace(date, '').strip()
-        if debug:
-            print('Split with date: ', split_with_possible_date)
-            print('Remaining characters: ', remaining_characters)
-                  
-        
-        if len(remaining_characters.strip()) <= 5 and any(char.isdigit() for char in date):
-            # Make sure at least 1 is a digit in the string (since some purely string can catch the marker)
-            if debug:
-                print('Found the date in: ', split_with_possible_date)
-                print('Date is: ', date)
-            return date
+            date_marker = complete_date_re.findall(split_with_possible_date)
+            if len(date_marker) > 0:
+                date = date_marker[0][0]
+                remaining_characters = split_with_possible_date.replace(date, '').strip()
+                if debug:
+                    print('Found the date in: ', split_with_possible_date)
+                    print('Date is: ', date)
+                return date
             
-        else:
-            return ''
-    else:
-        return ''
+        
+    return ''
 
-def cleanDate(date):
+
+def cleanAndFormatDate(date):
+    
     if len(date.strip()) == 0:
-        return ''
-    else:
-        # Remove , at the end
-        if date[-1] == '.' or date[-1] == ',':
-            date = date[:-1]
+        return '', ''
+    
+    if debug:
+        print('Input date: ', date)
+        
+    # Remove . if it is the first/last character in the number
+    if date[-1] == '.':
+        date = date[:-1]
+    if date[0] == '.':
+        date = date[1:]
+    if debug:
+        print('Date after removing . in front/end:', date)
+    
+    
+    # Remove , if it is the first/last character in the number
+    if date[-1] == ',':
+        date = date[:-1]
+    if date[0] == ',':
+        date = date[1:]
+    if debug:
+        print('Date after removing , in front/end:', date)
+    
+    
+    # Remove 'st', 'nd', 'rd', and 'th'
+    ordinal_re_string = '[1liIL:\|\[\]\(\)]st|[2Zz]nd|3rd|[45Ss6G78B90OoDUu]th'
+    ordinal_re = re.compile(ordinal_re_string)
+    ordinal_marker = ordinal_re.findall(date)
+    if len(ordinal_marker) > 0:
+        ordinal_marker_removed = re.sub('st|nd|rd|th', '', ordinal_marker[0])
+        date = date.replace(ordinal_marker[0], ordinal_marker_removed)
+    
+    if debug:
+        print('After removing the ordinal stuff: ', date)
+    date_marker = complete_date_re.findall(date)
+    cleaned_date = 'Error: Date not found: ' + date
+    formatted_date = ''        
+    
+    if len(date_marker) > 0:
+        if debug:
+            print('Date marker: ', str(date_marker))
+            
+        date = date_marker[0][2:]
+        # 2: since the first two are the complete date and the month name
+        month_found = False
+        month_index = 0
+        while not month_found and month_index < 12:
+            if len(date[month_index].strip()) > 0:
+                month_found = True
+                break;
+            month_index += 1
 
-        return date
+        month_name = clean_months[month_index]
+        month_number = str(month_index+1)
+        if len(month_number) == 1:
+            month_number = '0' + month_number
 
+        day = date[-2]
+        day = day.replace(' ', '')
+        if len(day) > 2:
+            day = day[0:2]
+        day = convertLettersToNumbers(day)
+        day = re.sub('[^0-9]', '', day)
+        
+        
+        if len(day) == 0:
+            day = '01'
+        
+        if int(day) > 31:
+            day = day[0]
+        
+        if len(day) == 1:
+            day = '0' + day
 
+        year = date[-1]
+        year = year.replace(' ', '')
+        year = convertLettersToNumbers(year)
+        
+        # For now, the cleaned date is in the format Month Day, Year (Day is 1 or 2 characters)
+        cleaned_date = month_name + ' ' +  str(int(day)) + ', ' + year 
+        formatted_date = year + month_number + day
+
+        # Have restrictions/error-checking for date
+        if year[0] == '0' or int(year[0]) > 2:
+            # This is a wrong year
+            cleaned_date = 'Error: Year is wrong: ' + year
+
+        elif year[0] == '1' and year[1] == '0':
+            year = '2' + year[1:]
+            cleaned_date = month_name + ' ' +  str(int(day)) + ', ' + year 
+            formatted_date = year + month_number + day
+            
+        elif year[0] == '2' and year[1] == '9':
+            year = '1' + year[1:]
+            cleaned_date = month_name + ' ' +  str(int(day)) + ', ' + year 
+            formatted_date = year + month_number + day
+            
+            
+        if debug:
+            print(date_marker)
+            print(date)
+            print(month_name)
+            print(month_number)
+            print(day)
+            print(year)
+            print(cleaned_date)
+
+    return cleaned_date, formatted_date
+
+    
 def getPropertyAddressFromLines(previous_lines, line_with_date):
     property_address = ''
     # Start from the last line (so switch up the first and last lines)
@@ -934,8 +1070,9 @@ def getParagraph(in_file, start_line, end_marker_re):
         elif len(end_marker_re.findall(line)) > 0:
             # There's a CJM file - where the end of a paragraph could not be found
             # Next section is found - this is the end of the paragraph
-            # Move back one line so it can be read again since it is most likely a beginning marker 
             next_section_found = True
+            if debug:
+                print('Paragraph end marker found: ' + str(end_marker_re.findall(line)))
             
 #         elif (len(loan_type_re.findall(line)) > 0 or len(arn_re.findall(line)) > 0) and len(line.split()) < 10 \
 #         and len(note_to_exclude_re1.findall(line)) == 0 and len(note_to_exclude_re2.findall(line)) == 0:
@@ -962,27 +1099,48 @@ def getParagraph(in_file, start_line, end_marker_re):
 
 def cleanAmount(amount):
     
+    if len(amount.strip()) == 0:
+        return ''
+           
+    # This is just used for error messages later
     original_amount = amount
-    
-    dollar_index = amount.find('$') + 1
+           
+    dollar_index = amount.find('$')
     if dollar_index != -1:
-        amount = amount[dollar_index:].strip()
+        amount = amount[dollar_index+1:].strip()
         if debug:
             print('Amount after removing $: ', amount)
-        if amount[0] == ',' or amount[0] == '.':
+        if amount[0] == ',' or amount[0] == '.' or amount[0] == '0':
             # We are missing a number
             return ('Error - missing the first digit')
     else:
         # If $ does not exist, look at U.S.
-        us_marker_re = re.compile('(?i)U\.{0,1}S\.{0,1}')
+        # Sometimes $ becomes an S, 5, 8 or 3.
+        # But if the digit is followed by ',', then that digit is part of the amount
+        us_marker_re = re.compile('[UuI][\.\si]{0,1}[Ss][\.\si]{0,1}\s{0,}|DOLLARS\s{0,}[Ss]')
         us_marker = us_marker_re.findall(amount)
+        if debug:
+            print('US marker: ', us_marker)
         if len(us_marker) > 0:
             us_index = amount.find(us_marker[0]) + len(us_marker[0])
             amount = amount[us_index:].strip()
+            if debug:
+                print('Amount after removing US marker: ', amount)
+            # Check if the first character is a 5,3 , or 8. 
+            # If it is and the second character is not a',', then remove that digit
+            # Otherwise, that digit is part of the number
+            digit_dollar_marker_re = re.compile('[Ss358][^,]')
+            digit_dollar_marker = digit_dollar_marker_re.findall(amount[:2])
+            if len(digit_dollar_marker):
+                amount = amount[1:].strip()
+                if debug:
+                    print('Amount after removing numbers that might have been a dollar sign: ', amount)
+            
     
     close_par_index = amount.find(')')
     # There are amounts that are enclosed in ()
     if close_par_index != -1:
+        amount_is_enclosed_in_parentheses = True
         amount = amount[:close_par_index].strip()
         if debug:
             print('Amount after removing closing parenthesis: ', amount)
@@ -996,7 +1154,7 @@ def cleanAmount(amount):
             print('Amount to before (: ', amount)
     
     
-    end_marker_re = re.compile('and|or')
+    end_marker_re = re.compile('and|[oO][rn]')
     end_marker = end_marker_re.findall(amount)
     if len(end_marker) > 0:
         end_index = amount.find(end_marker[0])
@@ -1006,82 +1164,222 @@ def cleanAmount(amount):
     
     # Remove the word 'DOLLARS'
     amount = re.sub('(?i)DOLLARS', '', amount)
-    amount = re.sub('\s{0,},\s{0,}', ',', amount)
-    amount = re.sub('\s{0,}\.\s{0,}', '.', amount)
-    
+
     if len(amount.strip()) == 0:
         return ''
     
+    # Remove these characters from the end of the string
     if amount[-1] == ')' or amount[-1] == ',' or amount[-1] == '.':
         amount = amount[:-1]
 
+    # Convert - to . (there were cases where this is needed)
+    amount = amount.replace('-', '.')
+    
     # Convert known letters-that-could-be-numbers to numbers
     amount = convertLettersToNumbers(amount)
     
+    # If a group of numbers is separated by space, add a','
+    # xxx xxx - insert a ,
+    cleaning_done = False
+    while not cleaning_done:
+        amount_re =re.compile('\d{1,3}\s+\d{3}')
+        markers = amount_re.findall(amount)
+        for marker in markers:
+            amount = amount.replace(marker, marker.replace(' ', ','))
+        if debug: 
+            print('Amount after inserting , between numbers: ', amount)
+            
+        if len(markers) == 0:
+            cleaning_done = True
+
     # Remove spaces between numbers
     cleaning_done = False
     while not cleaning_done:
-        amount_re =re.compile('\d+\s+\d+')
+        amount_re =re.compile('\d{1,2}\s+\d{1,2}')
         markers = amount_re.findall(amount)
         for marker in markers:
             amount = amount.replace(marker, marker.replace(' ', ''))
-
+        if debug: 
+            print('Amount after removing spaces between numbers: ', amount)
+            
         if len(markers) == 0:
             cleaning_done = True
-        
+
+    # Remove spaces surrounding commas or dots 
+    amount = re.sub('\s{0,},\s{0,}', ',', amount)
+    amount = re.sub('\s{0,}\.\s{0,}', '.', amount)
     amount = amount.split()[0]
     
+    # Split the number in , or .
+    # If the last group has 5 characters - insert a .        
+    amount_splits = re.split('[,\.]', amount)
+    if debug:
+            print('Amount splits: ', str(amount_splits))
+    
+    if len(amount_splits[-1]) == 5:
+        last_split = amount_splits[-1]
+        amount_splits[-1] = last_split[:3] + '.' + last_split[-2:]
+        amount = ','.join(amount_splits[:])
+        if debug:
+            print('Need to insert a decimal point: ', last_split)
+            print('Amount after inserting decimal point: ', amount)
+            
     # Removing everything that is not a number or , or . or a letter - since there is a check if what remains is a digit
-    amount = re.sub('[^[A-Za-z]0-9,\.]', '', amount)
+    amount = re.sub('[^A-Za-z0-9,\.]', '', amount)
+    if debug:
+        print('Amount after removing everything that is not a letter, number, . or ,: ', amount)
     
     # Check if this has the right format - the last 3 characters should match (.xx)
     # Check if this has the right format - sometimes the .xx does not exist
-    amount_marker_re = re.compile('\d{1,3}[\.,]\d{3}[\.,]\d{3}[\.,]\d{3}(?:[\.,]\d{2})?|    \d{1,3}[\.,]\d{3}[\.,]\d{3}(?:[\.,]\d{2})?|\d{1,3}[\.,]\d{3}(?:[\.,]\d{2})?|\d{1,3}(?:[\.,]\d{2})?')
+    amount_marker_re = re.compile('^\d{1,3}[\.,]\d{3}[\.,]\d{3}[\.,]\d{3}(?:[\.,]\d{2})?|    ^\d{1,3}[\.,]\d{3}[\.,]\d{3}(?:[\.,]\d{2})?|^\d{1,3}[\.,]\d{3}(?:[\.,]\d{2})?|^\d{1,3}(?:[\.,]\d{2})?')
     amount_marker = amount_marker_re.findall(amount)
     
-    wrong_number_re = re.compile('\d{4,}')
+    # If there are numbers with 4 digits or more without spacing, or just 1 number after a . or , -  format is wrong
+    wrong_number_re = re.compile('\d{4,}|[,\.]\d{1,2}[,\.]')
     wrong_number_marker = wrong_number_re.findall(amount)
-    # If there are numbers with 4 digits or more without spacing, format is wrong
+    wrong_decimal_marker_re = re.compile('[,\.]\d')
+    wrong_decimal_marker = wrong_decimal_marker_re.findall(amount[-2:])
     
-    if len(amount_marker) > 0 and len(wrong_number_marker) == 0 :
+    if debug:
+        print('Amount to check: ' + amount)
+        print('Markers:')
+        print('Amount marker: ', str(amount_marker))
+        print('Wrong number marker: ', str(wrong_number_marker))
+        print('Wrong decimal marker: ', str(wrong_decimal_marker))
+        
+    # We need the whole amount and the decimal amount 
+    whole_amount = ''
+    decimal_amount = ''
+    
+    # For error checking, there should be at least 4 characters in amount
+    if len(amount) >= 4 and len(amount_marker) > 0 and len(wrong_number_marker) == 0     and len(wrong_decimal_marker) == 0:
         if debug:
             print('Amount has right format: ', amount)
             print('Amount marker: ', str(amount_marker))
-        decimal_marker_re = re.compile('[,\.]\d{2}')
-        decimal_marker = decimal_marker_re.findall(amount[-3:])
-        if len(decimal_marker) > 0:
-            amount = amount[:-3]
+        decimal_marker_re2 = re.compile('[,\.]\d{2}')
+        decimal_marker2 = decimal_marker_re2.findall(amount[-3:])
+                
+        # There are cases when we get .xxx in the end (this is considered the cents value only when it is a period, not comma)
+        # If the last 4 characters are .xxx (this is considered as part of the amount 
+        # unless the amount exceeds 900M)
+        decimal_marker_re3 = re.compile('\.\d{3}')
+        decimal_marker3 = decimal_marker_re3.findall(amount[-4:])
+
+        
+        whole_amount = amount
+        decimal_amount = ''
+        
+        if len(decimal_marker2) > 0:
+            whole_amount = amount[:-3]   
+            decimal_amount = amount[-3:]
+            if debug:
+                print('Only 2 decimal points for the cents amount')
+                print('Amount after separating whole amount with decimal amount: ', whole_amount +'   ' + decimal_amount)
+            
+        elif (len(decimal_marker3) > 0 and len(amount) > 11):
+            whole_amount = amount[:-4]
+            decimal_amount = amount[-4:]
+            if debug:
+                print('There are 3 digita after the decimal point.')
+                print('Those are are considered cents if amount is more than $900M')
+                print('Those are considered part of the amount if less thatn $900M')
+                print('Amount after separating whole amount with decimal amount: ', whole_amount +'   ' + decimal_amount)
+          
         
         # Remove all ',' or '.'
-        amount = re.sub('[\.,]', '', amount)
+        whole_amount = re.sub('[\.,]', '', whole_amount)
+        amount = whole_amount + decimal_amount
+        amount = amount.replace(',', '.')
+        # This makes sure no commas are left but the decimal point - this is needed for rounding
         
+        if debug:
+            print('Amount after removing all commas in whole amount: ', (whole_amount + decimal_amount))
+            
         # Check if everything else that remains are all digits
-        if not amount.isdigit():
+        if not whole_amount.isdigit():
             amount = 'Error - not digits: ' + original_amount
+            if debug:
+                print('Amount error: ', amount)
+        elif int(whole_amount) < 1000:
+            # Return nil if amount is less than 1000
+            amount = 'Error - there must be something wrong. Amount is less than 1000: ' + amount
+            if debug:
+                print('Amount error: ', amount)
+        else:
+            # Everything is good - do bankers rounding
+            float_amount = round(float(amount))
+            amount = str(float_amount)
         
     else:
         amount = 'Error on format: ' + original_amount
+        if debug:
+                print('Amount error: ', amount)
     
+    if debug:
+        print('Amount to return: ', amount)
+        
     return amount
 
+
 def cleanPercentageNumber(number):
+    
+    # This is needed for error message
+    original_number = number
+    
+    if len(number.strip()) == 0 or (len(number.strip()) <= 2 and number.isdigit()):
+        return number
+    
+    # Take everything from '(' on:
+    open_par_index = number.find('(') 
+    # If this exists, the percentage is the number after it
+    if open_par_index != -1:
+        number = number[open_par_index+1:].strip()
+        if debug:
+            print('Percentage from ( on : ', number)
+        if len(number.strip()) == 0 or (len(number.strip()) <= 2 and number.isdigit()):
+            return number
+            
     # Remove 'of' and everything below it
     # this is because the marker for the note rate is either 'yearly rate of' or 'yearly rate'    
     if 'of' in number:
         of_index = number.find('of') + 2
         number = number[of_index:].strip()
-    
-    # Remove . if it is the last character in the number
-    if '.' in number and '.' == number[-1]:
-        number = number[:-1]
         if debug:
-            print('Percentage after removing . :', number)
+            print('Percentage after removing anything before \'of\': ', number)
+        if len(number.strip()) == 0 or (len(number.strip()) <= 2 and number.isdigit()):
+            return number
+        
+    # Remove . if it is the first/last character in the number
+    if number[-1] == '.':
+        number = number[:-1]
+    if number[0] == '.':
+        number = number[1:]
+    if debug:
+        print('Percentage after removing . :', number)
+    
+    
+    # Remove , if it is the first/last character in the number
+    if number[-1] == ',':
+        number = number[:-1]
+    if number[0] == ',':
+        number = number[0:]
+    if debug:
+        print('Percentage after removing . :', number)
+    
     
     # Remove '0/0' - this is badly OCR'd %
     # Replace ',' with .
+    # Replace '-' with .
+    # Replace .. or ., with just one
     # Remove the spaces
-    number = re.sub('0/0', '', number)
+    number = re.sub('0/0|_', '', number)
     number = re.sub('[-,;]', '.', number)
+    number = re.sub('[\.,]{2,}', '.', number)
+    if debug:
+        print('Percentage after changing 0/0 and -_,; : ')
+    
+    # Replace 'J' with .1
+    number = re.sub('J', '.7', number)
     
     # Convert the letters that could be numbers
     number = convertLettersToNumbers(number)
@@ -1093,36 +1391,121 @@ def cleanPercentageNumber(number):
         print('Number marker: ', number_marker)
         
     if len(number_marker) > 0:
-        number = number_marker[0]
+        number = number_marker[0].strip()
         if number.count('.') == 0 and number.count('\s') == 1:
-            number = re.sub(' ', '.', number)
+            number = re.sub('\s', '.', number)
+            if debug:
+                print('No decimal point and there is one space - replace the space with .: ', number)
         elif number.count('.') == 1:
             number = re.sub(' ', '', number)
-        elif number.isdigit():
-            number = number
-        else:
-            number = ''
-    else:
-        number = ''
+            if debug:
+                print('One decimal point, remove the spaces', number)
+        elif number.count('.') == 0 and len(number.strip()) > 1:
+            # No dot, count the number of characters, if there are 5 or more, put the . after the 2 characters.
+            # Else, put the . after the first character
+            # Remove all spaces
+            number = re.sub('\s+', '', number)
+            if len(number) >= 5:
+                number = number[:2] + '.' + number[2:]
+            else:
+                number = number[0] + '.' + number[1:]
+            if debug:
+                print('No decimal point, : ', number)
+    
+    # Remove everything that is not a space, a number or a .
+    number = re.sub('[^0-9\.\s]', '', number)
+    if debug:
+        print('Percentage after removing everything that is not a number, period, or space: ', number)
+    
+    # Find x.xxx (2 or 3 decimal places)
+    percentage_marker_re = re.compile('\d+\.\d{1,3}')
+    percentage_marker = percentage_marker_re.findall(number)
+    if debug:
+        print('Percentage marker: ', str(percentage_marker))
     
     # Only return up to 3 decimal places
-    if len(number) > 0:
-        decimal_point_index = number.find('.') + 1
-        if decimal_point_index + 3 < len(number):
-            number = number[:decimal_point_index+3]
-    
+    if len(percentage_marker) > 0:
+        number = percentage_marker[0]
+    else:
+        number = 'Error: Percentage not found: ' + original_number
+        
+    if debug:
+            print('Percentage to return: ', number)
+            
     return number
 
+def cleanResetFrequency(freq):
+    if len(freq.strip()) == 0:
+        return ''
+    
+    if debug:
+        print('Input reset frequency: ', freq)
+        
+    # Remove 'st', 'nd', 'rd', and 'th'
+    ordinal_re_string = '[1liIL:\|\[\]\(\)]st|[2Zz]nd|3rd|[45Ss6G78B90OoDUu]th'
+    ordinal_re = re.compile(ordinal_re_string)
+    ordinal_marker = ordinal_re.findall(freq)
+    if len(ordinal_marker) > 0:
+        ordinal_marker_removed = re.sub('st|nd|rd|th', '', ordinal_marker[0])
+        freq = freq.replace(ordinal_marker[0], ordinal_marker_removed)
+    
+    if debug:
+        print('Reset frequency after removing ordinal stuff: ', freq)
+        
+    # Convert known letters-that-could-be-numbers to numbers
+    freq = convertLettersToNumbers(freq)
+    if debug:
+        print('Reset frequency after converting to numbers: ', freq)
+            
+    # Removing everything that is not a number or , or . or a letter - since there is a check if what remains is a digit
+    freq = re.sub('[^0-9]', '', freq)
+    if debug:
+        print('Reset frequency after removing everything that is not a number: ', freq)
+    
+    if len(freq) > 2:
+        if '12' in freq:
+            freq  = '12'
+        elif '6' in freq:
+            freq = '6'
+        else:
+            freq = freq[0]
 
+    if debug:
+        print('Reset frequency to return: ', freq)
+
+    return freq
+
+
+def cleanIndex(index):
+    
+    # Just remove any unreadable characters for now
+    index = re.sub('[^A-Za-z0-9\-\.\s,]', '', index)
+    
+    return index
+
+
+def cleanLenderName(lender_name):
+    
+    # Just remove any unreadable characters for now
+    lender_name = re.sub('[^A-Za-z0-9\-\.\s,]', '', lender_name)
+    
+    return lender_name
+    
+    
 def convertLettersToNumbers(number):
     
-    number = re.sub('[ODo]', '0', number)
-    number = re.sub('[liIL:\|\[\]\(\)]', '1', number)
-    number = re.sub('zZ', '2', number)
-    number = re.sub('sS', '5', number)
+    if debug:
+        print('Original number: ', number)
+        
+    number = re.sub('[ODoUu]', '0', number)
+    number = re.sub('[liIL!\|\[\]\(\)\{\}]', '1', number)
+    number = re.sub('[zZ]', '2', number)
+    number = re.sub('[sS]', '5', number)
     number = re.sub('G', '6', number)
     number = re.sub('B', '8', number)
     
+    if debug:
+        print('Converted number: ', number)
     
     return number
     
@@ -1133,37 +1516,45 @@ def processBorrowersPromiseToPayParagraph(paragraph, attributes_row):
     promise_to_pay_re_string = '[pva]{1,2}.{1,5}[mnrit][unt]{0,1}[iIrl1tun\s][sSn][eoca]s{0,1}\s{0,}' +     '.{0,3}[tiIln\()m][oneua0]{0,1}\s{0,}.{0,3}\s{0,}[pn]{0,1}[aimn]t{0,1}y'
     end_marker_re_string = '.{0,1}t[hI][iulI]s|plus|.Principa[li]|to the order|or so much'
     loan_amount = getValue(paragraph, promise_to_pay_re_string, end_marker_re_string)
-        
-    lender_is_re_string = '[Ll][eac][na][dt][\sl]{0,1}[ecsa].{0,2}[\su]{0,1}[iIl1tra\[][sS583tn]'
-    end_marker_re_string = '(?i).thi.|[I1l\|] understand|[I1l\]\[\|].{0,1}[wW][il1t][lit1\]]{2}.make'
-    loan_source = getValue(paragraph, lender_is_re_string, end_marker_re_string)
     
-    if len(loan_amount.strip()) > 0:
-        attributes_row[loan_amount_index] = cleanAmount(loan_amount)
-    else:
+    if loan_amount.startswith('Error'):
         attributes_row[loan_amount_index] = loan_amount
+    else:
+        attributes_row[loan_amount_index] = cleanAmount(loan_amount)
         
-    attributes_row[lender_name_index] = loan_source
-
+    
+    lender_is_re_string = '[Ll][eac][na][dt][\sl]{0,1}[ecsa].{0,2}[\su]{0,1}[iIl1tra\[][sS583tn]'
+    end_marker_re_string = '(?i).thi.|[I1l\|] understand|[I1l\]\[\|].{0,1}[wW][il1t][lit1\]]{2}.make' +     '|\d{0,1}\s{0,}Construction'
+    lender_name = getValue(paragraph, lender_is_re_string, end_marker_re_string)
+    
+    if lender_name.startswith('Error'):
+        attributes_row[lender_name_index] = lender_name
+    else:
+        attributes_row[lender_name_index] = cleanLenderName(lender_name)
+    
      
     return attributes_row
 
 def processInterestParagraph(paragraph, attributes_row):
      # Extract original note/interest rate
-    yearly_rate_of_re_string = 'ye{0,1}a[rl][l1it]y [rnl][aot][tl]e.{0,2}[o0fri]{0,2}'
-    end_marker_re_string =  '\%|[Tt]he'
+    yearly_rate_of_re_string = 'ye{0,1}a[rl][l1it]y\s{0,}[rnlTt][aotue][tl]{0,2}[ecn].{0,2}\s{0,}[o0fri]{1,2}' +     '|the\s{0,}[rnl][aotu][tl]{1,2}e.{0,2}\s{0,}[o0fri]{0,2}'
+    
+    end_marker_re_string =  '\%|[TtIL].{0,1}he'
     note_rate = getValue(paragraph, yearly_rate_of_re_string, end_marker_re_string)
     
-    note_rate2 = cleanPercentageNumber(note_rate)
+    if note_rate.startswith('Error'):
+        attributes_row[note_rate_index] = note_rate
+        attributes_row[arm_initial_rate_index] = note_rate    
+    else:
+        attributes_row[note_rate_index] = cleanPercentageNumber(note_rate)
+        attributes_row[arm_initial_rate_index] = cleanPercentageNumber(note_rate)
     
-    attributes_row[note_rate_index] = note_rate2
-    attributes_row[arm_initial_rate_index] = note_rate2    
         
     return attributes_row
 
 
 def processPaymentsParagraph(paragraph, attributes_row):
-    
+        
     start_marker = time_and_place_of_payments_re.findall(paragraph)
     
     # So far, I have seen the following formats of the PAYMENTS paragraph 
@@ -1175,19 +1566,21 @@ def processPaymentsParagraph(paragraph, attributes_row):
     # 3. "I Will make (my monthly/interest/a) payment/s on the * day of ...  beginning on *full date*" - interest only
     # 4. "I will pay monthly principal and interest
     
-    i_will_string = '[Iil1\[\]].{0,3}[WwMmV].{0,1}[iIl1].{1,3}\s{0,}.{0,4}\s{0,}'
-    
-    format_re_1_string = 'B[ec]g[iltI1]{0,1}[nm][nm][lt1iI]{0,1}ng.[oant]{0,2}\s{0,}'
+    i_will_string = '[Iil1\[\]].{0,3}[WwMmV].{0,1}[iIlt1\|].{1,3}\s{0,}.{0,4}\s{0,}'
+
+    format_re_1_string = '(?i)B[ec].{1,2}[nmt]{2}[lt1iI]{0,1}[nm]g[oant\s]{0,3}\s{0,}'
     format_re_2_string = i_will_string +     '.pay [pP][rn][ilt1]{0,1}n[cCe][iltr1]pa[lit1] and [iIlt][ni]i{0,1}[tli][ecCa][rl]{0,1}.{0,1}[ecm]st'
     format_re_3_string = i_will_string + '.make(a{0,1}|interest|my monthly)\s{0,}pa[yV]\s{0,}ments{0,1}'
     format_re_4_string = i_will_string +     '.pay monthly [pP][rn][ilt1]{0,1}n[cCe][iltr1]pa[lit1] and [iIlt][ni]i{0,1}[tli][ecCa][rl]{0,1}.{0,1}[ecm]st'
+    format_re_5_string = 'Pay{0,1}ments During Construction'
     
     format_re_1 = re.compile(format_re_1_string)
     format_re_2 = re.compile(format_re_2_string)
     format_re_3 = re.compile(format_re_3_string)
     format_re_4 = re.compile(format_re_4_string)
+    format_re_5 = re.compile(format_re_5_string)
     
-    beginning_on_re_string = 'b[ec]g[iltI1]{0,1}[nm][nm][lt1iI]{0,1}ng.[oant]{0,2}\s+'
+    beginning_on_re_string = format_re_1_string + '|commencing\s{0,}[on\s]{0,3}'
     
     first_payment_date_start_marker_re_string = ''
     first_payment_date = ''
@@ -1203,11 +1596,15 @@ def processPaymentsParagraph(paragraph, attributes_row):
         first_payment_date_start_marker_re_string = format_re_1_string
         interest_only_at_origination = 'Y'
 
-        start_marker_re_string = 'Note until'
-        end_marker_re_string = thereafter_re_string
+        start_marker_re_string = '[Nn]ote\s{0,}until|[uU]ntil\s{0,}the'
+        end_marker_re_string = thereafter_re_string + '|[Oo]n'
+        if debug:
+            print('This start marker used: ', start_marker_re_string)
+            print('This end marker used: ', end_marker_re_string)
+            
         interest_only_exp_date = getValue(paragraph, start_marker_re_string, end_marker_re_string)
         if debug:
-            print('Format 1')
+            print('Format 1 -  Beginning on *full date*')
             
     elif len(format_re_2.findall(beginning_text)) > 0:
         # Format 2 - I will pay principal and interest - P&I 
@@ -1216,7 +1613,7 @@ def processPaymentsParagraph(paragraph, attributes_row):
         first_payment_date_start_marker_re_string = beginning_on_re_string
         interest_only_at_origination = 'N'
         if debug:
-            print('Format 2')
+            print('Format 2 - I will pay principal and interest')
 
     elif len(format_re_3.findall(beginning_text)) > 0:
         # Format 3 -"
@@ -1226,12 +1623,12 @@ def processPaymentsParagraph(paragraph, attributes_row):
         first_payment_date_start_marker_re_string = beginning_on_re_string
         interest_only_at_origination = 'Y'
 
-        start_marker_re_string = 'up to and including'
-        end_marker_re_string =thereafter_re_string
+        start_marker_re_string = 'including (?:\(last .{10,20} date\))?'
+        end_marker_re_string = thereafter_re_string + '|[oO]n'
         interest_only_exp_date = getValue(paragraph, start_marker_re_string, end_marker_re_string)
 
         if debug:
-            print('Format 3')
+            print('Format 3 - I Will make (my monthly/interest/a) payment/s on the')
             
     elif len(format_re_4.findall(beginning_text)) > 0:
         # Format 4 - "I will pay monthly principal and interest
@@ -1240,7 +1637,18 @@ def processPaymentsParagraph(paragraph, attributes_row):
         first_payment_date_start_marker_re_string = beginning_on_re_string
         interest_only_at_origination = 'N'
         if debug:
-            print('Format 4')
+            print('Format 4 - I will pay monthly principal and interest')
+    
+    elif len(format_re_5.findall(beginning_text)) > 0:
+        # Format 5 - 'Construction document'
+        first_payment_date_start_marker_re_string = beginning_on_re_string
+        interest_only_at_origination = 'Y'
+        
+        start_marker_re_string = 'including'
+        end_marker_re_string = 'My'
+        interest_only_exp_date = getValue(paragraph, start_marker_re_string, end_marker_re_string)
+        if debug:
+            print('Format 5 - Construction file')
         
     else:
         if debug:
@@ -1248,29 +1656,58 @@ def processPaymentsParagraph(paragraph, attributes_row):
         attributes_row[first_payment_date_index] = 'Not found: ' + paragraph[:]
     
     
-    first_payment_date_end_marker_re_string = '.{0,1}\s{0,}' + i_will_string + '.make' + '|' +        '.{0,1}\s{0,}Bef[obO][ri][ec] the' + '|' +         '.{0,1}\s{0,}' + i_will_string + '.pay' + '|' +         '.{0,1}\s{0,}and on' + '|' +         '.{0,1}\s{0,}This payment' + '|' +         'I .{3,7} pay' + '|' + 'I .{3,7} make' + '|' +         'and continue'
+    first_payment_date_end_marker_re_string = '.Bef[obO][ri][ec] the' + '|' +         'and' + '|' +         'This payment' + '|' + i_will_string
     
     if len(first_payment_date_start_marker_re_string.strip()) > 0:
         first_payment_date = getValue(paragraph, first_payment_date_start_marker_re_string,                                  first_payment_date_end_marker_re_string)
-        
-    attributes_row[first_payment_date_index] = first_payment_date
-    attributes_row[interest_only_at_origination_flag_index] = interest_only_at_origination
-    attributes_row[interest_only_exp_date_index] = cleanDate(interest_only_exp_date)
     
-    # Get the recurring date
-    if len(format_re_1.findall(beginning_text)) > 0:
-        attributes_row[recurring_date_index] = ''
+    if first_payment_date.startswith('Error'):
+        cleaned_date = first_payment_date
+        formatted_date = ''
     else:
-        recurring_date_start_marker_re_string = 'on the'
-        recurring_date_end_marker_re_string = '[dcl\(]{1,2}ay of'
-        recurring_date = getValue(paragraph, recurring_date_start_marker_re_string, recurring_date_end_marker_re_string)
-        attributes_row[recurring_date_index] = recurring_date
+        cleaned_date, formatted_date = cleanAndFormatDate(first_payment_date)
 
+    attributes_row[first_payment_date_index] = cleaned_date    
+    attributes_row[interest_only_at_origination_flag_index] = interest_only_at_origination
+
+    if interest_only_exp_date.startswith('Error'):
+        cleaned_date = interest_only_exp_date
+        formatted_date = ''
+    else:
+        cleaned_date, formatted_date = cleanAndFormatDate(interest_only_exp_date)
+
+    attributes_row[interest_only_exp_date_index] = cleaned_date
+
+        
     # Get the maturity date
-    maturity_date_start_marker_re_string = '[Iil1][ftl1IL].{1,5}o[nh]'
-    maturity_date_end_marker_re_string = '[I1li]\s{0,}[Ss5]till owe'
+    maturity_date_start_marker_re_string = '(?i)[ILFT]{2},{0,1}\s{0,}o[nh]'
+    maturity_date_end_marker_re_string = '(?i)[I1LT\|]\s{0,}[Ss5][til1\|]{3,5}'
     maturity_date = getValue(paragraph, maturity_date_start_marker_re_string, maturity_date_end_marker_re_string)
-    attributes_row[maturity_date_index] = cleanDate(maturity_date)
+    # If maturity date can't be found due to the marker "If, on" is not found 
+    # Some files only say "On (insert date here), which is called the Maturity date
+    # Use the interest_only_exp_date or first_payment_date as the marker, whichever is around
+    if maturity_date.startswith('Error: Start') or maturity_date.startswith('Error: None'):
+        if debug:
+            print('The original \'If on\' marker for maturity date is not found')
+        if not interest_only_exp_date.startswith('Error'):
+            new_marker_re = re.compile(interest_only_exp_date + '(.*)' + 'which')
+            new_maturity_date = new_marker_re.findall(paragraph)
+            if debug:
+                print('Interest only exp date exists so this is used as a marker')
+                print('New maturity date marker: ', new_maturity_date)
+            
+            if len(new_maturity_date) > 0:
+                maturity_date = new_maturity_date[0]
+                if debug:
+                    print('New maturity date: ', new_maturity_date)
+            
+    if maturity_date.startswith('Error'):
+        cleaned_date = maturity_date
+        formatted_date = ''
+    else:
+        cleaned_date, formatted_date = cleanAndFormatDate(maturity_date)
+        
+    attributes_row[maturity_date_index] = cleaned_date
     
     # Get the amount of initial monthly payments
     monthly_payment_amount_start_marker_re_string = 'will be in the amount of'
@@ -1278,61 +1715,183 @@ def processPaymentsParagraph(paragraph, attributes_row):
     monthly_payment_amount = getValue(paragraph, monthly_payment_amount_start_marker_re_string,                                      monthly_payment_amount_end_marker_re_string)
     attributes_row[pi_amount_index] = monthly_payment_amount
     
+    
     return attributes_row
 
 
 def processInterestRateAndPaymentChangesParagraph(paragraph, attributes_row):
     change_dates_re_string = 'Change\s{0,}Dates'
-    index_re_string = 'The\s{0,}[Ii]nde.'
-    calculation_re_string  = 'Calculation'
-    limits_on_interest_re_string = 'Limits\s{0,}on\s{0,}Interest'
-    effective_date_or_notice_string = 'Effective\s{0,}Date|Notice\s{0,}of\s{0,}Changes'
+    index_re_string = '[TtlL]h.\s{0,}.{0,2}[TIil\s][nri\s]{1,2}[dmicl\s]{1,2}[ce].{1,3}' +    '(?:.{0,2}\s{0,}[\[iI1l][sS58].{0,1}\s{0,}[tTL]{0,1}[hH][eE])?'
+    calculation_re_string  = 'Calculation|Interest Rate Change'
+    limits_on_interest_re_string = '[Ll]imits\s{0,}[oa]n\s{0,}[Ii]nterest|Interest\s{0,}Rate\s{0,}[Ll]imit'
+    effective_date_or_notice_string = 'Payment\s{0,}Change\s{0,}Dates|Effective\s{0,}Date|Noti.{1,3}\s{0,}of\s{0,}Changes'
     
     change_dates_paragraph = getValue(paragraph, change_dates_re_string, index_re_string)
-    change_date_start_marker_re_string = 'change\s{0,}on\s{0,}(the)?|rate\s{0,}on\s{0,}the'
-    change_date_end_marker_string = '[\.,]\s{0,}and'
-    change_date = getValue(change_dates_paragraph, change_date_start_marker_re_string, change_date_end_marker_string)
-    attributes_row[change_date_index] = change_date
-    
-    pmt_reset_freq_start_marker_re_string = 'on that day every'
-    pmt_reset_freq_end_marker_re_string = 'month\s{0,}' + thereafter_re_string
-    payment_reset_frequency = getValue(change_dates_paragraph, pmt_reset_freq_start_marker_re_string,                                       pmt_reset_freq_end_marker_re_string)
-    
-    if len(payment_reset_frequency.strip()) == 0:
-        attributes_row[arm_payment_reset_freq_index] = '1'
-    else:
-        attributes_row[arm_payment_reset_freq_index] = payment_reset_frequency
-    
-    index_paragraph = getValue(paragraph, index_re_string, calculation_re_string)
-    index_start_marker_re_string = '.{1,3}[Ii]ndex.{1,3} is the|.{1,3}[Ii]ndex.{1,3} is:'
-    index_end_marker_re_string = '(?i)[\.,]\s{0,}The most'
-    index_info = getValue(index_paragraph, index_start_marker_re_string, index_end_marker_re_string)
-    attributes_row[arm_index_index] = index_info
-    
-    calculation_of_changes_paragraph = getValue(paragraph, calculation_re_string, limits_on_interest_re_string)
-    margin_rate_start_marker_re_string = 'percentage\s{0,}points\s{0,}\('
-    margin_rate_end_marker_re_string = '\%'
-    attributes_row[arm_margin_at_origination_index] = getValue(calculation_of_changes_paragraph,                                                                margin_rate_start_marker_re_string,                                                               margin_rate_end_marker_re_string)
-    
-    limits_paragraph = getValue(paragraph, limits_on_interest_re_string, effective_date_or_notice_string)
-    periodic_rate_cap_start_marker_re_string = 'points'
-    periodic_rate_cap_end_marker_re_string = 'from the'
-    periodic_rate_cap = getValue (limits_paragraph, periodic_rate_cap_start_marker_re_string,                                  periodic_rate_cap_end_marker_re_string)
-    
-    attributes_row[arm_periodic_rate_cap_index] = periodic_rate_cap
-    attributes_row[arm_periodic_rate_floor_index] = periodic_rate_cap
+    if not change_dates_paragraph.startswith('Error'):
+        change_date_start_marker_re_string = '\s{1,}[Oo]n\s{1,}[the]{0,3}'
+        change_date_end_marker_string = '\s{1,}[ao]nd\s{1,}|\s{1,}[oa]n\s{1,}' + '|' + thereafter_re_string
+        change_date = getValue(change_dates_paragraph, change_date_start_marker_re_string, change_date_end_marker_string)
+        if change_date.startswith('Error'):
+            cleaned_date = change_date
+            formatted_date = ''
+        else:
+            cleaned_date, formatted_date = cleanAndFormatDate(change_date)
+        attributes_row[change_date_index] = cleaned_date
 
-    lifetime_rate_floor_start_marker_re_string = 'or less than'
-    lifetime_rate_floor_end_marker_re_string = '\%'
-    lifetime_rate_floor = getValue(limits_paragraph, lifetime_rate_floor_start_marker_re_string,                                   lifetime_rate_floor_end_marker_re_string)
-    attributes_row[arm_lifetime_rate_floor_index] = lifetime_rate_floor
+        if attributes_row[interest_only_at_origination_flag_index] == 'Y' and         len(attributes_row[interest_only_exp_date_index]) == 0:
+            # It is interest only at origination and no interest expiry date in the paragraph. 
+            # Use the change date
+            attributes_row[interest_only_exp_date_index] = cleaned_date
+
+        pmt_reset_freq_start_marker_re_string = '[ec]v[ec]ry'
+        pmt_reset_freq_end_marker_re_string = '[mM][oO0]n[lti]h'
+        payment_reset_frequency = getValue(change_dates_paragraph, pmt_reset_freq_start_marker_re_string,                                           pmt_reset_freq_end_marker_re_string)
+
+        if payment_reset_frequency.startswith('Error'):
+            # Try finding for year
+            pmt_reset_freq_end_marker_re_string = 'year'
+            payment_reset_frequency = getValue(change_dates_paragraph, pmt_reset_freq_start_marker_re_string,                                           pmt_reset_freq_end_marker_re_string)
+            if payment_reset_frequency.startswith('Error'):
+                attributes_row[arm_payment_reset_freq_index] = payment_reset_frequency
+            else:
+                if len(payment_reset_frequency.strip()) == 0:
+                    attributes_row[arm_payment_reset_freq_index] = '12' # 1 year
+                else:
+                    attributes_row[arm_payment_reset_freq_index] = str(12 * int(cleanResetFrequency(payment_reset_frequency)))
+
+        else:
+            if len(payment_reset_frequency.strip()) == 0:
+                attributes_row[arm_payment_reset_freq_index] = '1'
+            else:
+                attributes_row[arm_payment_reset_freq_index] = cleanResetFrequency(payment_reset_frequency)
+    else:
+        # Change Dates paragraph not found
+        attributes_row[change_date_index] = 'Error: Change Dates paragraph not found'
+        attributes_row[arm_payment_reset_freq_index] = 'Error: Change Dates paragraph not found'
+                
+    index_paragraph = getValue(paragraph, index_re_string, calculation_re_string)
+    if not index_paragraph.startswith('Error'):
+        index_start_marker_re_string = index_re_string
+        index_end_marker_re_string = '(?i)[T\[]h[eco]\s{0,}.{0,2}\s{0,}[mrni]{1,2}[oei]{1,2}\s{0,1}st'
+        index_info = getValue(index_paragraph, index_start_marker_re_string, index_end_marker_re_string)
+        if index_info.startswith('Error'):
+            attributes_row[arm_index_index] = index_info
+        else:
+            attributes_row[arm_index_index] = cleanIndex(index_info)
+    else:
+        # Index paragraph not found
+        attributes_row[arm_index_index] = 'Error: Index paragraph not found'
     
-    lifetime_rate_ceiling_start_marker_re_string = 'never be greater than|never increase to more than'
-    lifetime_rate_ceiling_end_marker_re_string = '\%'
-    lifetime_rate_ceiling = getValue(limits_paragraph, lifetime_rate_ceiling_start_marker_re_string,                                    lifetime_rate_ceiling_end_marker_re_string)
-    attributes_row[arm_lifetime_rate_ceiling_index] = lifetime_rate_ceiling
+
+    calculation_of_changes_paragraph = getValue(paragraph, calculation_re_string, limits_on_interest_re_string)
+    if not calculation_of_changes_paragraph.startswith('Error'):
+        margin_rate_start_marker_re_string = 'percent(?:[as]\s{0,1}g[ew]\s{0,}'+        '[pP][oO0a\s][inm1lIH]{1,3}[tmL]\({0,1}.{0,1}\){0,1})?\s{0,}.'
+        margin_rate_end_marker_re_string = '\%|to the'
+        arm_margin_at_origination = getValue(calculation_of_changes_paragraph, margin_rate_start_marker_re_string,                                              margin_rate_end_marker_re_string)
+        if arm_margin_at_origination.startswith('Error'):
+            attributes_row[arm_margin_at_origination_index] = arm_margin_at_origination
+        else:
+            attributes_row[arm_margin_at_origination_index] = cleanPercentageNumber(arm_margin_at_origination)
     
+    else:
+        # Calculation of Changes paragraph not found
+        attributes_row[arm_margin_at_origination_index] = 'Error: Calculation of Changes paragraph not found'
     
+    # Get Limits paragraph
+    limits_paragraph = getValue(paragraph, limits_on_interest_re_string, effective_date_or_notice_string)
+    if not limits_paragraph.startswith('Error'):
+        periodic_rate_cap_start_marker_re_string = '[m\s]ore\s{0,}than'
+        periodic_rate_cap_end_marker_re_string = 'p{0,1}[ec]{0,1}r[ce]{2}nt[as]\s{0,1}g[ewc]{0,1}|%|from\s{0,}the' +         '|' + thereafter_re_string
+        periodic_rate_cap = getValue (limits_paragraph, periodic_rate_cap_start_marker_re_string,                                      periodic_rate_cap_end_marker_re_string)
+        if periodic_rate_cap.startswith('Error') or len(periodic_rate_cap.strip()) == 0:
+            attributes_row[arm_periodic_rate_cap_index] = periodic_rate_cap
+        else:
+            periodic_rate_cap = periodic_rate_cap.lower().strip()
+            periodic_rate_cap = periodic_rate_cap.split()[0]
+            periodic_rate_cap_words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
+            try:
+                periodic_rate_cap_number = periodic_rate_cap_words.index(periodic_rate_cap)
+                attributes_row[arm_periodic_rate_cap_index] = str(periodic_rate_cap_number)
+                attributes_row[arm_periodic_rate_floor_index] = str(periodic_rate_cap_number)
+            except ValueError:
+                attributes_row[arm_periodic_rate_cap_index] = 'Error: Cannot find periodic rate cap'
+                attributes_row[arm_periodic_rate_floor_index] = 'Error: Cannot find periodic rate cap'        
+
+        greater_than_re_string = 'g[rmi].{1,2}[tm][ea][rit]\s{0,}.h[ae]n'
+        less_than_re_string = '[lerao]{1,2}[su]{2}\s{0,}th[ae]n'
+        never_be_greater_than_re_string = 'never\s{0,}be\s{0,1}' + greater_than_re_string +'(?:.{,50}p[o)O][iltI]n[tliI]s)?'
+        not_be_greater_than_re_string = 'not\s{0,}be\s{0,1}' + greater_than_re_string
+        lifetime_rate_ceiling_start_marker_re_string = never_be_greater_than_re_string +        '|never\s{0,}increase\s{0,}to\s{0,}more\s{0,}than'+ '|lesser\s{0,}of'
+        lifetime_rate_ceiling_end_marker_re_string = '\%|[wW]hic[hl]{1,2}|or' + '|' + thereafter_re_string
+        lifetime_rate_ceiling = getValue(limits_paragraph, lifetime_rate_ceiling_start_marker_re_string,                                        lifetime_rate_ceiling_end_marker_re_string)
+                                            
+        if lifetime_rate_ceiling.startswith('Error: Start'):
+            # Try not_be_greater_than
+            lifetime_rate_ceiling_start_marker_re_string = not_be_greater_than_re_string
+            lifetime_rate_ceiling = getValue(limits_paragraph, lifetime_rate_ceiling_start_marker_re_string,                                        lifetime_rate_ceiling_end_marker_re_string)
+            if lifetime_rate_ceiling.startswith('Error'):
+                # Still error
+                attributes_row[arm_lifetime_rate_ceiling_index] = lifetime_rate_ceiling
+            else:
+                attributes_row[arm_lifetime_rate_ceiling_index] = cleanPercentageNumber(lifetime_rate_ceiling)
+        else:
+            attributes_row[arm_lifetime_rate_ceiling_index] = cleanPercentageNumber(lifetime_rate_ceiling)
+        
+        
+        lifetime_rate_floor_start_marker_re_string = never_be_greater_than_re_string + '.*or\s{0,}' + less_than_re_string +          '|no event\s{0,}' + less_than_re_string + '|lesser of.*' + less_than_re_string
+        lifetime_rate_floor_end_marker_re_string = '[\%\(\)]' + '|' + thereafter_re_string
+        lifetime_rate_floor = getValue(limits_paragraph, lifetime_rate_floor_start_marker_re_string,                                       lifetime_rate_floor_end_marker_re_string)
+        if lifetime_rate_floor.startswith('Error: Start'):
+            # Try not_greater_than
+            lifetime_rate_floor_start_marker_re_string = not_be_greater_than_re_string +  '.*or\s{0,}' + less_than_re_string
+            lifetime_rate_floor = getValue(limits_paragraph, lifetime_rate_floor_start_marker_re_string,                                       lifetime_rate_floor_end_marker_re_string)
+            if lifetime_rate_floor.startswith('Error'):
+                attributes_row[arm_lifetime_rate_floor_index] = lifetime_rate_floor
+            else:
+                attributes_row[arm_lifetime_rate_floor_index] = cleanPercentageNumber(lifetime_rate_floor)
+        else:
+            attributes_row[arm_lifetime_rate_floor_index] = cleanPercentageNumber(lifetime_rate_floor)
+        
+        lifetime_rate_ceiling = attributes_row[arm_lifetime_rate_ceiling_index]
+        lifetime_rate_floor = attributes_row[arm_lifetime_rate_floor_index]
+        if not lifetime_rate_ceiling.startswith('Error')and not lifetime_rate_floor.startswith('Error')         and len(lifetime_rate_ceiling.strip()) > 0 and len(lifetime_rate_floor.strip()) > 0:
+            # Check if rate_ceiling < rate_floor
+            # There might be an issue with the decimal point for ceiling (since we always put it after the first digit)
+            if debug:
+                print('The rate ceiling and floor have values: ', float(lifetime_rate_ceiling), float(lifetime_rate_floor))
+            if float(lifetime_rate_ceiling) < float(lifetime_rate_floor):
+                if debug:
+                    print('Lifetime rate ceiling is less than lifetime rate floor: ', lifetime_rate_ceiling, lifetime_rate_floor)
+                lifetime_rate_ceiling = lifetime_rate_ceiling.replace('.', '')
+                if len(lifetime_rate_ceiling) > 2:
+                    lifetime_rate_ceiling = lifetime_rate_ceiling[:2] + '.' + lifetime_rate_ceiling[2:]
+                
+                if debug:
+                    print('New lifetime rate ceiling: ', lifetime_rate_ceiling)
+                attributes_row[arm_lifetime_rate_ceiling_index] = lifetime_rate_ceiling
+                
+        # Compute for ARM Lifetime Rate Cap
+        lifetime_rate_ceiling = attributes_row[arm_lifetime_rate_ceiling_index]
+        lifetime_rate_floor = attributes_row[arm_lifetime_rate_floor_index]
+        if lifetime_rate_ceiling.startswith('Error') or lifetime_rate_floor.startswith('Error')         or len(lifetime_rate_ceiling.strip()) == 0 or len(lifetime_rate_floor.strip()) == 0:
+            attributes_row[arm_lifetime_rate_cap_index] =  'Error: cannot compute for lifetime rate cap index' +            ' (either empty or error)'
+        else:
+            arm_lifetime_rate_cap = str(float(lifetime_rate_ceiling) - float(lifetime_rate_floor))
+            # Only get upto 3 decimal places
+            # Find the .
+            decimal_point_index = arm_lifetime_rate_cap.find('.')
+            if decimal_point_index > 0:
+                attributes_row[arm_lifetime_rate_cap_index] =  arm_lifetime_rate_cap[:decimal_point_index+3]
+            else:
+                attributes_row[arm_lifetime_rate_cap_index] =  arm_lifetime_rate_cap
+
+    else:
+        # Limits paragraph not found
+        attributes_row[arm_periodic_rate_cap_index] = 'Error: Limits paragraph not found'
+        attributes_row[arm_periodic_rate_floor_index] = 'Error: Limits paragraph not found'
+        attributes_row[arm_lifetime_rate_floor_index] = 'Error: Limits paragraph not found'
+        attributes_row[arm_lifetime_rate_ceiling_index] = 'Error: Limits paragraph not found'
+
     return attributes_row
 
 
@@ -1354,13 +1913,13 @@ def processBorrowersRightToPrepayParagraph(paragraph, attributes_row):
             attributes_row[prepayment_penalty_term_index] = prepayment_marker[0][1]
         elif len(no_penalty_marker[0][1].strip()) == 0:
             attributes_row[prepayment_penalty_flag_index] = 'N'
-            attributes_row[prepayment_penalty_term_index] = 0
+            attributes_row[prepayment_penalty_term_index] = '0'
         else:
-            attributes_row[prepayment_penalty_flag_index] = paragraph
+            attributes_row[prepayment_penalty_flag_index] = 'Error: Prepayment Penalty Markers not found ' +  paragraph
             attributes_row[prepayment_penalty_term_index] = 'Error'
         
     else:
-        attributes_row[prepayment_penalty_flag_index] = paragraph
+        attributes_row[prepayment_penalty_flag_index] = 'Error: Prepayment Penalty Markers not found ' + paragraph
         attributes_row[prepayment_penalty_term_index] = 'Error'
         
     if debug:
@@ -1413,7 +1972,7 @@ def getValue(paragraph, start_re_string, end_re_string):
             if debug:
                 print('Start index for marker: ' + str(start_index) + ' ' + start_marker[0])
                 print('End index for marker: ' +  str(end_index) + ' ' + em)
-            if end_index > start_index + 1:
+            if end_index >= start_index + 1:
                 break;
             else:
                 search_end_index += len(em)
@@ -1425,17 +1984,17 @@ def getValue(paragraph, start_re_string, end_re_string):
     elif len(end_marker) > 0:
         start_index = -1
         end_index = paragraph.find(end_marker[0])
-        value = '' #'Start marker not found: ' + paragraph.strip()
+        value = 'Error: Start marker not found: ' + paragraph.strip()
         
     elif len(start_marker) > 0:
         start_index = paragraph.find(start_marker[0]) + len(start_marker[0])
         end_index = -1
-        value = ''#'End marker not found: ' + paragraph[start_index:].strip()
+        value = 'Error: End marker not found: ' + paragraph[start_index:].strip()
     
     else:
         start_index = -1
         end_index = -1
-        value = ''#'Can\'t get value: ' + paragraph
+        value = 'Error: None of the markers found: ' + paragraph
     
     if debug:
         print('Value: ', value)
@@ -1446,6 +2005,42 @@ def getValue(paragraph, start_re_string, end_re_string):
         
     return value
 
+def computeForMonthsDifference(date1, date2):
+    # Assumption is date is in format Months Day, Year
+    if date1.startswith('Error') or date2.startswith('Error') or len(date1.strip()) == 0 or len(date2.strip()) == 0:
+        return 'Error: cannot compute for months. One or both dates are empty/with error.'
+    
+    date1_splits = date1.split()
+    date2_splits = date2.split()
+    
+    year1 = int(date1_splits[2])
+    month1 = clean_months.index(date1_splits[0]) + 1
+    day1 = date1_splits[1]
+    
+    year2 = int(date2_splits[2])
+    month2 = clean_months.index(date2_splits[0]) + 1
+    day2 = date2_splits[1]
+    
+    
+    # Make sure date1 is more recent than date2 so # of months = date1 - date2
+    if year1 < year2 or (year1 == year2 and month1 < month2):
+        # Switch dates
+        temp = year1
+        year1 = year2
+        year2 = temp
+        
+        temp = month1
+        month1 = month2
+        month2 = temp
+        
+        temp = day1
+        day1= day2
+        day2 = temp
+        
+
+    # Compute for the difference in months:
+    return str(12 * (year1 - year2) + (month1 - month2))
+    
 
 def extractNoteAttributes(file):
     
@@ -1501,8 +2096,9 @@ def extractNoteAttributes(file):
         
         # This is used for checking the date marker (it has to be on the first split)
         line_splits = re.split(r'\s{10,}', line)
+
         
-        if len(loan_type_re.findall(line)) > 0 and len(attributes_row[loan_type_index]) == 0        and len(addendum_re.findall(line)) == 0 and len(consolidated_adjustable_re.findall(line)) == 0        and len(allonge_re.findall(line)) == 0 and 'THIS' not in line and         not borrowers_promise_to_pay_paragraph_found:
+        if len(loan_type_re.findall(line)) > 0 and len(addendum_re.findall(line)) == 0         and len(allonge_re.findall(line)) == 0 and 'THIS' not in line and         not borrowers_promise_to_pay_paragraph_found:
             # No addendums (for now)
             # Get the loan type and payment type (if loan type is empty)
             if debug:
@@ -1556,18 +2152,20 @@ def extractNoteAttributes(file):
                 attributes_row = getAddressValues(property_address, attributes_row)
             if len(line_with_date.strip()) > 0 and len(attributes_row[mortgage_date_index].strip()) == 0: 
                 mortgage_date = getMortgageDate(line_with_date)
-                attributes_row[mortgage_date_index] = mortgage_date
-                attributes_row[productions_fund_date_index] = mortgage_date
+                cleaned_date, formatted_date = cleanAndFormatDate(mortgage_date)
+                attributes_row[mortgage_date_index] = cleaned_date
+                attributes_row[productions_fund_date_index] = cleaned_date
                 line_with_date = ''
 
                 
-        elif len(borrowers_promise_to_pay_re.findall(line)) > 0 and not borrowers_promise_to_pay_paragraph_found:
+        elif len(borrowers_promise_to_pay_re.findall(line)) > 0 and not borrowers_promise_to_pay_paragraph_found        and not 'FOR VALUE RECEIVED' in line:
             # Found 'BORROWER'S PROMISE TO PAY
-            
-            borrowers_promise_to_pay_end_marker_re_string = interest_uc_re_string + '|' + interest_lc_re_string
+            borrowers_promise_to_pay_end_marker_re_string = interest_uc_re_string + '|' + interest_lc_re_string +              '|' +  payments_re_string + '|' + time_and_place_of_payments_re_string +                  '|' + interest_rate_and_payment_changes_re_string + '|' + change_dates_re_string +                '|' + loan_charges_re_string
+                
             borrowers_promise_to_pay_end_marker_re = re.compile(borrowers_promise_to_pay_end_marker_re_string)
             
             if debug:
+                print('Marker found :', str(borrowers_promise_to_pay_re.findall(line)))
                 print('Found BORROWER\'S PROMISE TO PAY in line: ' + line)
                 print('End marker: ' + str(borrowers_promise_to_pay_end_marker_re))
             
@@ -1591,16 +2189,20 @@ def extractNoteAttributes(file):
                         print('Addresses saved in attributes row: ' + property_address)
             
             if len(line_with_date.strip()) > 0 and len(attributes_row[mortgage_date_index].strip()) == 0:
-                attributes_row[mortgage_date_index] = getMortgageDate(line_with_date)
+                mortgage_date = getMortgageDate(line_with_date)
+                cleaned_date, formatted_date = cleanAndFormatDate(mortgage_date)
+                attributes_row[mortgage_date_index] = cleaned_date
+                attributes_row[productions_fund_date_index] = cleaned_date
                 line_with_date = ''
                 if debug:
                     print('Date saved in attributes row: ' + attributes_row[mortgage_date_index])
-                
+
+            
         elif ((len(interest_uc_re.findall(line)) > 0 and letter_count <= 10 ) or len(interest_lc_re.findall(line)) > 0)         and not interest_paragraph_found and borrowers_promise_to_pay_paragraph_found:
             # If all upper case INTEREST - it should only have less than 10 characters/letters
             
              # Get the INTEREST paragraph
-            interest_end_marker_re_string = payments_re_string + '|' + time_and_place_of_payments_re_string
+            interest_end_marker_re_string = payments_re_string + '|' + time_and_place_of_payments_re_string +              '|' + interest_rate_and_payment_changes_re_string + '|' + change_dates_re_string +             '|' + borrowers_right_to_prepay_re_string + '|' + loan_charges_re_string
             interest_end_marker_re = re.compile(interest_end_marker_re_string)
             
             if debug:
@@ -1612,10 +2214,10 @@ def extractNoteAttributes(file):
             attributes_row = processInterestParagraph(paragraph, attributes_row)
             
                 
-        elif len(time_and_place_of_payments_re.findall(line)) > 0         and not payments_paragraph_found and borrowers_promise_to_pay_paragraph_found:
+        elif (len(payments_re.findall(line)) > 0 or len(time_and_place_of_payments_re.findall(line)) > 0)        and not payments_paragraph_found and borrowers_promise_to_pay_paragraph_found:
             # Get the PAYMENTS paragraph
             # The next paragraph is either INTEREST RATE AND.*PAYMENT CHANGES or BORROWER'S RIGHT TO PREPAY
-            payments_end_marker_re_string = interest_rate_and_payment_changes_re_string +             '|' + borrowers_right_to_prepay_re_string
+            payments_end_marker_re_string = interest_rate_and_payment_changes_re_string + '|' + change_dates_re_string +             '|' + borrowers_right_to_prepay_re_string + '|' + loan_charges_re_string
             payments_end_marker_re = re.compile(payments_end_marker_re_string)
             
             if debug:
@@ -1626,22 +2228,17 @@ def extractNoteAttributes(file):
             
             attributes_row = processPaymentsParagraph(paragraph, attributes_row)
             
-            # NOTE: need to change this - just for error checking
-            payment_type = attributes_row[payment_type_index]
-            fixed_marker = fixed_re.findall(payment_type)
-            if len(fixed_marker) == 0:
-                attributes_row[change_date_index] = paragraph
-                
             
-        elif len(interest_rate_and_payment_changes_re.findall(line)) > 0 or len(change_dates_re.findall(line)) > 0         and not interest_rate_and_payment_changes_paragraph_found and borrowers_promise_to_pay_paragraph_found:
+        elif (len(interest_rate_and_payment_changes_re.findall(line)) > 0 or len(change_dates_re.findall(line)) > 0)         and not interest_rate_and_payment_changes_paragraph_found and borrowers_promise_to_pay_paragraph_found: 
             
-            interest_rate_and_payment_changes_end_marker_re = borrowers_right_to_prepay_re
+            interest_rate_and_payment_changes_end_marker_re_string = borrowers_right_to_prepay_re_string +             '|' + loan_charges_re_string
+            interest_rate_and_payment_changes_end_marker_re = re.compile(interest_rate_and_payment_changes_end_marker_re_string)
             
             if debug:
                 print('Found INTEREST RATE AND PAYMENT CHANGES/Change Dates in line: ' + line)
                 
             paragraph, next_line = getParagraph(in_file, line, interest_rate_and_payment_changes_end_marker_re)
-            interest_rate_and_payment_changes_paragraph = True
+            interest_rate_and_payment_changes_paragraph_found = True
             
             attributes_row = processInterestRateAndPaymentChangesParagraph(paragraph, attributes_row)
             
@@ -1661,6 +2258,10 @@ def extractNoteAttributes(file):
             
             # NOTE: Change this - some files have multiple Notes so change this to resetting the attributes_row
             done = True
+            
+        elif len(loan_charges_re.findall(line)) > 0 and borrowers_promise_to_pay_paragraph_found:
+            done = True
+
         else:
             # We save the last 3 non-empty lines
             # Some addresses have 3 lines
@@ -1668,41 +2269,70 @@ def extractNoteAttributes(file):
             previous_lines[1] = previous_lines[2]
             previous_lines[2] = line
             
-        # Check if the paragraph has the 10-digit loan number and the note type (if the paragraph covers multiple pages)
-        # Only works for RM files (I think)
-        if len(paragraph.strip()) > 0:
-            # Make sure it is one of the allowed data
-            note_type_re = re.compile('\d{10}(.{0,40} NOTE)')
-            note_type_marker = note_type_re.findall(paragraph)
-            if debug:
-                print('Note type marker: ', str(note_type_marker))
-            if len(note_type_marker) > 0 and len(loan_type_re.findall(note_type_marker[0])) > 0:
-                attributes_row[loan_type_index] = note_type_marker[0].strip()
-        
-        if len(getMortgageDate(line).strip()) > 0 and not borrowers_promise_to_pay_paragraph_found:
+
+        if not done and not borrowers_promise_to_pay_paragraph_found:
             # If line has the mortgage date and BORROWER'S PROMISE TO PAY is not found yet, get this date 
             # We always want the most recent date closest to the paragraph
             # Remove this line from previous_lines
-            line_with_date = line
             
-            # Update the attributes_row
-            date = getMortgageDate(line)
-            attributes_row[mortgage_date_index] = date
-            attributes_row[productions_fund_date_index] = date
+            if len(getMortgageDate(line).strip()) > 0:
+                line_with_date = line
             
-            previous_lines = ['', '', '']
-            if debug:
-                print('Found line with date: ' + line_with_date)
+                previous_lines = ['', '', '']
+                if debug:
+                    print('Found line with date: ' + line_with_date)
             
     
     in_file.close()
     
+    # Add the computed number of months
+    mortgage_date = attributes_row[mortgage_date_index]
+    change_date = attributes_row[change_date_index]
+    interest_only_exp_date = attributes_row[interest_only_exp_date_index]
+    maturity_date = attributes_row[maturity_date_index]
+    
+    attributes_row[initial_rate_period_index] = computeForMonthsDifference(change_date, mortgage_date)
+    attributes_row[interest_only_term_index] = computeForMonthsDifference(interest_only_exp_date, mortgage_date)
+    attributes_row[loan_term_index] = computeForMonthsDifference(maturity_date, mortgage_date)
+    
+    # Add the paragraphs not found for this document
+    paragraphs_not_found = ''
+    if borrowers_promise_to_pay_paragraph_found == False:
+        paragraphs_not_found = paragraphs_not_found + 'No Borrowers Promise to Pay Paragraph + '
+    if interest_paragraph_found == False:
+        paragraphs_not_found = paragraphs_not_found + 'No Interest Paragraph + '
+    if payments_paragraph_found == False:
+        paragraphs_not_found = paragraphs_not_found + 'No Payments Paragraph + '
+    if interest_rate_and_payment_changes_paragraph_found == False:
+        paragraphs_not_found = paragraphs_not_found + 'No Interest Rate and Payment Changes Paragraph +'
+    if borrowers_right_to_prepay_paragraph_found == False:
+        paragraphs_not_found = paragraphs_not_found + 'No Borrowers Right to Prepay Paragraph +'
+    attributes_row[paragraphs_not_found_index] = paragraphs_not_found
+    
+    if debug: 
+        print('Attributes row: ', str(attributes_row))
+    
+    # This clears out every attribute that starts with 'Error' - if set to True
+    clean_output = True
+    if clean_output:
+        attribute_index = 0
+        while attribute_index < len(attributes_row):
+            attribute = attributes_row[attribute_index]
+            if debug:
+                print('Attribute + index: ', attribute + ' ' + str(attribute_index))
+            if attribute.startswith('Error'):
+                attributes_row[attribute_index] = ''
+            attribute_index += 1
+        if debug:
+            print('Attributes row after clearing those that start with error: ', str(attributes_row))
+            
+    #TODO: Add the code that initializes the attributes_row[] when one note is already finished 
+    # Since it was found that there are some CJM docs with multiple notes
+    
+        
     # Add the last attributes_row to the list
     multiple_attributes_rows.append(attributes_row)
     
-    if debug:
-        print(multiple_attributes_rows)
-        
     # Add the sourcepath to the attributes_row
     for attributes_row in multiple_attributes_rows:
         attributes_row[source_path_index] = file
@@ -1710,11 +2340,13 @@ def extractNoteAttributes(file):
             attributes_row[loan_number_index] = file.split("/")[len(file.split("/"))-1].split("_")[0]
             attributes_row[-1] = file.split("/")[len(file.split("/"))-1].split("_")[1]
 
+    # print(multiple_attributes_rows)
+    
     return multiple_attributes_rows
     
 
 
-# In[8]:
+# In[3]:
 
 import os
 import os.path
@@ -1724,21 +2356,21 @@ import csv
 debug = False
 residential_mortgages_flag = False
 
-# cjm_indices = [source_path_index, loan_type_index, payment_type_index, mortgage_date_index,\
-#                                          productions_fund_date_index, usps_full_address_index, usps_city_index, usps_state_index,\
-#                                          usps_zip_index, loan_amount_index, note_rate_index, arm_initial_rate_index, \
-#                                          first_payment_date_index, recurring_date_index, interest_only_exp_date_index, \
-#                                          maturity_date_index, initial_rate_period_index, loan_term_index, \
-#                                          interest_only_term_index, change_date_index, arm_payment_reset_freq_index,\
-#                                          arm_index_index, arm_margin_at_origination_index, arm_periodic_rate_cap_index,\
-#                                          arm_periodic_rate_floor_index, arm_lifetime_rate_cap_index,\
-#                                          arm_lifetime_rate_floor_index, arm_lifetime_rate_ceiling_index]
-        
-# cjm_notes_header =   [''] * len(cjm_indices)      
-# cjm_index = 0
-# for cjm_ind in cjm_indices:
-#     cjm_notes_header[cjm_index] = notes_header[cjm_ind]
-#     cjm_index += 1
+reocr_files_flag = False
+
+if reocr_files_flag:
+    set_ocr = 'CJM_Notes_ReOCR'
+else:
+    set_ocr = 'CJM_Notes_Good_OCR'
+
+    
+cjm_indices = [source_path_index, loan_type_index, payment_type_index, mortgage_date_index,               productions_fund_date_index, usps_full_address_index, usps_city_index, usps_state_index,               usps_zip_index, loan_amount_index, note_rate_index, arm_initial_rate_index,                first_payment_date_index, interest_only_at_origination_flag_index, interest_only_exp_date_index,                maturity_date_index, initial_rate_period_index, loan_term_index,                interest_only_term_index, change_date_index, arm_payment_reset_freq_index,               arm_index_index, arm_margin_at_origination_index, arm_periodic_rate_cap_index,               arm_periodic_rate_floor_index, arm_lifetime_rate_cap_index,               arm_lifetime_rate_floor_index, arm_lifetime_rate_ceiling_index, paragraphs_not_found_index]
+
+cjm_notes_header =   [''] * len(cjm_indices)      
+cjm_index = 0
+for cjm_ind in cjm_indices:
+    cjm_notes_header[cjm_index] = notes_header[cjm_ind]
+    cjm_index += 1
     
 
 # if residential_mortgages_flag:
@@ -1755,8 +2387,8 @@ residential_mortgages_flag = False
 #     writer.writerow(notes_header)
 
 # else:
-#     notes_list_file_name = '/apps/incoming/ARNPromissoryFiles.txt'
-#     out_file_name = '/apps/incoming/CJM_Notes_Output.txt'  
+#     notes_list_file_name = '/apps/incoming/' + set_ocr + '_Files.txt'
+#     out_file_name = '/apps/incoming/' + set_ocr + '_Out.txt'
 #     first_path = ''
 #     out_file = open(out_file_name, "w", newline = '')  
 #     writer = csv.writer(out_file, quoting=csv.QUOTE_ALL, escapechar='\\', quotechar='\"', delimiter = '\t')
@@ -1765,6 +2397,7 @@ residential_mortgages_flag = False
     
 # in_file = open(notes_list_file_name, 'r')
 # notes = in_file.readlines()
+# print(len(notes))
 # in_file.close()
 
 # if residential_mortgages_flag:
@@ -1778,7 +2411,14 @@ residential_mortgages_flag = False
 #     if residential_mortgages_flag:
 #         note = note.split('/')[len(note.split('/'))-1]
 #         note = first_path + note + end_path
+    
+#     if reocr_files_flag:
+#         first_path = '/apps/incoming/CJM Phase 3 ReOCRd Files/'
+#         note = note.split('/')[len(note.split('/'))-1]
+#         note = first_path + note
+#         note = note.replace('.txt.txt', '.txt')
 
+        
 #     note = note.replace('\n', '')
 #     print('PROCESSING FILE: ' + note)
 #     print('COUNT: ' + str(count))
@@ -1796,16 +2436,31 @@ residential_mortgages_flag = False
 #                 cjm_index += 1
                 
 #             cjm_multiple_attributes_rows.append(cjm_attributes_row)
-            
+        
 #         writer.writerows(cjm_multiple_attributes_rows)
 
 # out_file.close()
 
-
+##########
 debug = True
-multiple_attributes_rows = extractNoteAttributes('/apps/incoming/cjm/TIFs/images/2533793523.TIF.txt.txt')
-print(multiple_attributes_rows)
-print(len(multiple_attributes_rows))
+multiple_attributes_rows = extractNoteAttributes('/apps/incoming/cjm/ocr_out/2343240835.TIF.txt')
+
+if residential_mortgages_flag:
+    print(multiple_attributes_rows)
+    print(len(multiple_attributes_rows))
+
+else:
+    cjm_multiple_attributes_rows = []
+    for attributes_row in multiple_attributes_rows:
+        cjm_attributes_row = [''] * len(cjm_indices)
+        cjm_index = 0
+        for cjm_ind in cjm_indices:
+            cjm_attributes_row[cjm_index] = attributes_row[cjm_ind]
+            cjm_index += 1
+
+        cjm_multiple_attributes_rows.append(cjm_attributes_row)
+    
+    print(cjm_multiple_attributes_rows)
 
 
 # In[ ]:
